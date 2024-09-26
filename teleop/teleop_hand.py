@@ -6,7 +6,7 @@ import math
 import numpy as np
 import torch
 
-from TeleVision import OpenTeleVision
+from tele_vision import OpenTeleVision
 from Preprocessor import VuerPreprocessor
 from constants_vuer import tip_indices
 from dex_retargeting.retargeting_config import RetargetingConfig
@@ -32,7 +32,7 @@ class VuerTeleop:
         self.img_array = np.ndarray((self.img_shape[0], self.img_shape[1], 3), dtype=np.uint8, buffer=self.shm.buf)
         image_queue = Queue()
         toggle_streaming = Event()
-        self.tv = OpenTeleVision(self.resolution_cropped, self.shm.name, image_queue, toggle_streaming)
+        self.tv = OpenTeleVision(self.resolution_cropped, self.shm.name, image_queue, toggle_streaming, ngrok=False)
         self.processor = VuerPreprocessor()
 
         RetargetingConfig.set_default_urdf_dir('../assets')
